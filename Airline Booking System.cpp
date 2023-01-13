@@ -174,6 +174,7 @@ bool newBooking()
 	cout << "Enter Traveler Phone Number: ";
 	cin >> traveler.phone;
 	
+	# Todo: change the user identifier to id number and make it unchangeable
 	while(!validatePhone(traveler.phone))
 	{
 		cout << "Enter a valid phone number: ";
