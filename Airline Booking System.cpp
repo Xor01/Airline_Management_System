@@ -479,9 +479,9 @@ bool addTripDetails()
 		return false;
 	}
 	
-	file.close();
-    return false;
 	
+    return false;
+    file.close();	
 }
 
 
