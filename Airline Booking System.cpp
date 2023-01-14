@@ -601,9 +601,9 @@ void printTrip(string fo)
 	while (ctr < 1)
 	{
 		tripStream >> list[ctr].origin >> list[ctr].destination >> list[ctr].flighttime >> list[ctr].arrivaltime >> list[ctr].totalPassenger >> list[ctr].ticketPrice >> list[ctr].status;
-		cout << "=============================================================================================================================================================\n";
-		cout <<  "Origin: " << list[ctr].origin << " Destination: "  << list[ctr].destination << " Flight Time: " << list[ctr].flighttime << " Arrival Time: " << list[ctr].arrivaltime  << " Total Passenger: " << list[ctr].totalPassenger << " Ticket Price: " << list[ctr].ticketPrice << " Status: " << list[ctr].status << "\n";
-		cout << "=============================================================================================================================================================\n";
+		cout << "===================================================================================\n";
+		cout <<  "Origin: " << list[ctr].origin << "\nDestination: "  << list[ctr].destination << "\nFlight Time: " << list[ctr].flighttime << "\nArrival Time: " << list[ctr].arrivaltime  << "\nTotal Passenger: " << list[ctr].totalPassenger << "\nTicket Price: " << list[ctr].ticketPrice << "\nStatus: " << list[ctr].status << "\n";
+		cout << "===================================================================================\n";
 		++ctr;
 	}
 	
