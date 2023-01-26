@@ -429,7 +429,7 @@ bool addTripDetails()
 	
 	
 	cout << "Enter Ticket Price (SAR): ";	
-	trip.ticketPrice = validateInt(trip.ticketPrice,"Tickt Price");
+	trip.ticketPrice = validateInt(trip.ticketPrice,"Ticket Price");
 	
 	cout << "Enter Flight ID: ";
 	cin >> trip.tripId;
