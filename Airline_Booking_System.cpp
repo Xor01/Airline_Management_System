@@ -9,8 +9,8 @@ struct Trip
 {
 	string origin;
 	string destination;
-	string arrivaltime;
-	string flighttime;
+	string arrivalTime;
+	string flightTime;
 	string tripId;
 	string status;
 	int totalPassenger;
@@ -31,8 +31,8 @@ struct User
 };
 
 int numberOfLines(string fileName);
-bool isexist(string filen);
-bool ifUserdown(string user);
+bool isExist(string fileName);
+bool ifUserDown(string user);
 
 void printTrip(string fo);
 
@@ -50,7 +50,7 @@ void searchAvailableTrips();
 
 void getScheduleAndStatus();
 
-void PassingerList();
+void PassengerList();
 
 bool updateUser();
 
@@ -97,7 +97,7 @@ int main()
 				break;
 			case 5:
 				// switch()
-				cout << "[1] Schedule And Status For All Flights\n[2] Passinger List\n";
+				cout << "[1] Schedule And Status For All Flights\n[2] Passenger List\n";
 				cout << "- Your Choice: ";
 				temp = validateInt(temp,"Choice");
 				switch(temp)
@@ -106,7 +106,7 @@ int main()
 						searchAllTrips();
 						break;
 					case 2:
-						PassingerList();
+						PassengerList();
 						break;
 					default:
 						cout << "- Wrong Input! -";
@@ -181,7 +181,7 @@ bool newBooking()
 		cin >> traveler.phone;
 	}
 	
-	if(ifUserdown(traveler.phone))
+	if(ifUserDown(traveler.phone))
 	{
 		cout << "Sorry, This User is deleted";
 		return false;
@@ -200,7 +200,7 @@ bool newBooking()
 	
 	
 	// Check if a trip with this name exist
-	while(!isexist(tripFile))
+	while(!isExist(tripFile))
 	{	
 		cout << "Enter a valid Flight Name Or (e) To Exit: \n";
 		cin >> traveler.trip.tripId;
@@ -211,12 +211,12 @@ bool newBooking()
 		tripFile = "flights\\"+traveler.trip.tripId + ".dat";
 	}
 	
-	// Trip list where all traveler for a specifc trip exsist
+	// Trip list where all traveler for a specific trip exist
 	string tripListFile;
 	ifstream tripList;
 	
 	tripList.open(tripFile.c_str());
-	tripList >> trip.origin >> trip.destination >>  trip.flighttime >> trip.arrivaltime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
+	tripList >> trip.origin >> trip.destination >>  trip.flightTime >> trip.arrivalTime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
 	
 	// Check If flight is not available to not book it
 	if(trip.status == "Canceled" || trip.status == "Arrived" || trip.status == "In-Air")
@@ -252,7 +252,7 @@ bool newBooking()
 	traveler.status = "Active-Account";
 	traveler.tripStatus = "Booked";
 	
-	// another check if a booking procces done or not
+	// another check if a booking process done or not
 	if(file << traveler.trip.tripId << " "<< traveler.fName << " " << traveler.lName << " " << traveler.phone << " " << traveler.seat.seatNumber << " " << traveler.tripStatus << " " << traveler.status <<  "\n")
 	{
 		if(userFile << traveler.trip.tripId << " " << traveler.fName << " " << traveler.lName << " " << traveler.phone << " " << traveler.seat.seatNumber << " " << traveler.tripStatus << " " << traveler.status << "\n")
@@ -299,7 +299,7 @@ bool cancelBooking()
 	
 	
 	
-	if(ifUserdown(phone))
+	if(ifUserDown(phone))
 	{
 		cout << "- Sorry, This User is deleted";
 		return false;
@@ -313,7 +313,7 @@ bool cancelBooking()
 	
 	string tripFile = "flightsLists\\" + tripId+"List.dat";
 	
-	if(!isexist("flights\\" + tripId+".dat"))
+	if(!isExist("flights\\" + tripId+".dat"))
 	{
 		cout << "- Flight Does Not Exist!";
 		return false;
@@ -419,10 +419,10 @@ bool addTripDetails()
 	cin >> trip.destination;
 	
 	cout << "Enter Flight Time (HH:MM/DD/MM/YYYY): ";
-	cin >> trip.flighttime;
+	cin >> trip.flightTime;
 	
 	cout << "Enter Arrival Time (HH:MM/DD/MM/YYYY): ";
-	cin >> trip.arrivaltime;
+	cin >> trip.arrivalTime;
 	
 	cout << "Enter Total Passenger Number: ";
 	trip.totalPassenger = validateInt(trip.totalPassenger,"Total Passenger");
@@ -439,9 +439,9 @@ bool addTripDetails()
 	fileName = "flights\\" + trip.tripId +".dat";
 	
 	
-	while(isexist(fileName))
+	while(isExist(fileName))
 	{
-		cout << "- This Flight is Already Exsist, Enter Another One: \n";
+		cout << "- This Flight is Already Exist, Enter Another One: \n";
 		cin >> trip.tripId;
 		fileName = "flights\\" + trip.tripId +".dat";
 	}
@@ -451,7 +451,7 @@ bool addTripDetails()
 	
 	
 	 // insert now date in seconds to user file
-	file << trip.origin << " " << trip.destination << " " << trip.flighttime << " " << trip.arrivaltime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status<<"\n";
+	file << trip.origin << " " << trip.destination << " " << trip.flightTime << " " << trip.arrivalTime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status<<"\n";
 	
 	
 	
@@ -467,10 +467,10 @@ bool addTripDetails()
 		listFile.open(tripListFile.c_str(), ios::out | ios::app);
 		
 		// To save all flights names in one file
-		ofstream allflightsFile;
-		allflightsFile.open("flightsLists\\allFlightsFile.dat", ios::out | ios::app);
-		allflightsFile << trip.tripId << "\n";
-		allflightsFile.close();
+		ofstream allFlightsFile;
+		allFlightsFile.open("flightsLists\\allFlightsFile.dat", ios::out | ios::app);
+		allFlightsFile << trip.tripId << "\n";
+		allFlightsFile.close();
 		return true;	
 	}
 	else
@@ -511,17 +511,17 @@ void searchAvailableTrips()
 		getline(file,line);
 		
 		flightFile = "flights\\"+line+".dat";
-		ifstream flightStram;
+		ifstream flightStream;
 		
-		flightStram.open(flightFile.c_str(),ios::in);
+		flightStream.open(flightFile.c_str(),ios::in);
 		
 		// if file does not exist skip it
-		if(!flightStram)
+		if(!flightStream)
 		{
 			continue;
 		}
 		
-		getline(flightStram,flightLine);
+		getline(flightStream,flightLine);
 		
 		// check flight status
 		if(flightLine.find("Scheduled") != string::npos || flightLine.find("Delayed") != string::npos )
@@ -530,7 +530,7 @@ void searchAvailableTrips()
 			printTrip(flightFile);
 		}
 		
-		flightStram.close();
+		flightStream.close();
 	}
 }
 
@@ -560,23 +560,23 @@ void searchAllTrips()
 		getline(file,line);
 		
 		flightFile = "flights\\"+line+".dat";
-		ifstream flightStram;
+		ifstream flightStream;
 		
-		flightStram.open(flightFile.c_str(),ios::in);
+		flightStream.open(flightFile.c_str(),ios::in);
 		
-		if(!flightStram)
+		if(!flightStream)
 		{
 			continue;
 		}
 		
-		getline(flightStram,flightLine);
+		getline(flightStream,flightLine);
 		
 		
 		
 		printTrip(flightFile);
 		
 		
-		flightStram.close();
+		flightStream.close();
 	}
 }
 
@@ -600,9 +600,9 @@ void printTrip(string fo)
 	// to print the flight information
 	while (ctr < 1)
 	{
-		tripStream >> list[ctr].origin >> list[ctr].destination >> list[ctr].flighttime >> list[ctr].arrivaltime >> list[ctr].totalPassenger >> list[ctr].ticketPrice >> list[ctr].status;
+		tripStream >> list[ctr].origin >> list[ctr].destination >> list[ctr].flightTime >> list[ctr].arrivalTime >> list[ctr].totalPassenger >> list[ctr].ticketPrice >> list[ctr].status;
 		cout << "===================================================================================\n";
-		cout <<  "Origin: " << list[ctr].origin << "\nDestination: "  << list[ctr].destination << "\nFlight Time: " << list[ctr].flighttime << "\nArrival Time: " << list[ctr].arrivaltime  << "\nTotal Passenger: " << list[ctr].totalPassenger << "\nTicket Price: " << list[ctr].ticketPrice << "\nStatus: " << list[ctr].status << "\n";
+		cout <<  "Origin: " << list[ctr].origin << "\nDestination: "  << list[ctr].destination << "\nFlight Time: " << list[ctr].flightTime << "\nArrival Time: " << list[ctr].arrivalTime  << "\nTotal Passenger: " << list[ctr].totalPassenger << "\nTicket Price: " << list[ctr].ticketPrice << "\nStatus: " << list[ctr].status << "\n";
 		cout << "===================================================================================\n";
 		++ctr;
 	}
@@ -623,27 +623,27 @@ void getScheduleAndStatus()
 	
 
 		flightFile = "flights\\"+tripName+".dat";
-		ifstream flightStram;
-		flightStram.open(flightFile.c_str(),ios::in);
+		ifstream flightStream;
+		flightStream.open(flightFile.c_str(),ios::in);
 		
-		if(!flightStram)
+		if(!flightStream)
 		{
 			cout << "Error: ** Wrong Flight Name ** !\n";
 			return;
 		}	
 		// get flight information and print it
-	flightStram >> trip.origin >> trip.destination >> trip.flighttime >> trip.arrivaltime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;		
+	flightStream >> trip.origin >> trip.destination >> trip.flightTime >> trip.arrivalTime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;		
 	cout << "---------------------------------------\n";
 	cout <<"Flight ID: " << tripName <<"\n";
-	cout <<"Flight Schedule: " << trip.flighttime<<"\n";
+	cout <<"Flight Schedule: " << trip.flightTime<<"\n";
 	cout <<"Flight Status: " << trip.status<<"\n";
 	cout << "---------------------------------------\n";
-	flightStram.close();
+	flightStream.close();
 }
 
 
 // this function is to print passenger list
-void PassingerList()
+void PassengerList()
 {
 	string tripId,tripListFile,line;
 	cout << "- Enter Flight ID: ";
@@ -654,7 +654,7 @@ void PassingerList()
 	// if number of lines return 1 then it means their is no passengers
 	if(numberOfLines(tripListFile) < 1)
 	{
-		cout << "\n- There is No Passingers in this Flight! - \n";
+		cout << "\n- There is No Passengers in this Flight! - \n";
 		return;
 	}
 	
@@ -681,7 +681,7 @@ void PassingerList()
 			break;
 		}
 		
-		if(ifUserdown(list[ctr].phone))
+		if(ifUserDown(list[ctr].phone))
 		{
 			continue;
 		}
@@ -695,11 +695,11 @@ void PassingerList()
 
 
 // check if file exist
-bool isexist(string filen)
+bool isExist(string fileName)
 {
 	ifstream file;
 	
-	file.open(filen.c_str());
+	file.open(fileName.c_str());
 	
 	if(file)
 	{
@@ -715,10 +715,10 @@ int numberOfLines(string fileName)
 {
 	int numberOfLines = 0;
     string line;
-    ifstream myfile;
-    myfile.open(fileName.c_str());
+    ifstream anyFile;
+    anyFile.open(fileName.c_str());
 
-    while (getline(myfile, line))       
+    while (getline(anyFile, line))       
 	{
 		++numberOfLines;
 	}
@@ -747,7 +747,7 @@ bool deleteTrip()
 	int temp;
 	Trip trip;
 	
-	file >> trip.origin >> trip.destination >> trip.flighttime >> trip.arrivaltime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
+	file >> trip.origin >> trip.destination >> trip.flightTime >> trip.arrivalTime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
 	file.close();
 	
 	ofstream updateFile;
@@ -755,7 +755,7 @@ bool deleteTrip()
 		
 		trip.status = "Canceled";
 		
-		if(updateFile << trip.origin<< " " << trip.destination << " " << trip.flighttime << " " << trip.arrivaltime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status)
+		if(updateFile << trip.origin<< " " << trip.destination << " " << trip.flightTime << " " << trip.arrivalTime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status)
 		{
 			cout << "\n-- Flight Has Been Canceled! -- \n";
 		}
@@ -782,13 +782,13 @@ bool deleteUser()
 	
 	fileName = "users\\" + phone+"User.dat";
 	
-	if(ifUserdown(fileName))
+	if(ifUserDown(fileName))
 	{
 		cout << "Sorry, This User is deleted!\n";
 		return false;
 	}
 	
-	if(!isexist(fileName))
+	if(!isExist(fileName))
 	{
 		cout << "This User Does Not Exist!";
 		return false;
@@ -805,7 +805,7 @@ bool deleteUser()
 	
 	string tripFile = "flightsLists\\" + tripId +"List.dat";
 	
-	if(!isexist("flights\\" + tripId+".dat") && tripId != "n")
+	if(!isExist("flights\\" + tripId+".dat") && tripId != "n")
 	{
 		cout << "Flight Does Not Exist!";
 		return false;
@@ -913,12 +913,12 @@ bool updateUser()
 	
 	fileName = "users\\" + phone+"User.dat";
 	
-	if(ifUserdown(fileName))
+	if(ifUserDown(fileName))
 	{
 		cout << "Sorry, This User is deleted!\n";
 		return false;
 	}
-	if(!isexist(fileName))
+	if(!isExist(fileName))
 	{
 		cout << "This User Does Not Exist!";
 		return false;
@@ -975,7 +975,7 @@ bool updateUser()
 	
 	string tripFile = "flightsLists\\" + tripId +"List.dat";
 	
-	if(!isexist("flights\\" + tripId+".dat") && tripId != "n")
+	if(!isExist("flights\\" + tripId+".dat") && tripId != "n")
 	{
 		cout << "Flight Does Not Exist!";
 		return false;
@@ -1073,7 +1073,7 @@ bool updateTrip()
 	int tmp;
 	
 	cout << "What Do You Want To Update: ";
-	cout << "\n[1] Drparture Place\n[2] Flight Destination \n[3] Flight Time\n[4] Arrival Time\n[5] Total Passenger\n[6] Ticket Price\n[7] Flight Status\n";
+	cout << "\n[1] Departure Place\n[2] Flight Destination \n[3] Flight Time\n[4] Arrival Time\n[5] Total Passenger\n[6] Ticket Price\n[7] Flight Status\n";
 	cout << "Your Choice: ";
 	
 	string tripFile;
@@ -1092,7 +1092,7 @@ bool updateTrip()
 	bool flag = false;
 	Trip trip;
 	
-	file >> trip.origin >> trip.destination >> trip.flighttime >> trip.arrivaltime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
+	file >> trip.origin >> trip.destination >> trip.flightTime >> trip.arrivalTime >> trip.totalPassenger >> trip.ticketPrice >> trip.status;
 	file.close();	
 	
 	switch(validateInt(tmp,"Choice"))
@@ -1116,14 +1116,14 @@ bool updateTrip()
 		case 3:
 		
 			cout << "Enter New Flight Time: ";
-			cin >> trip.flighttime;
+			cin >> trip.flightTime;
 			flag = true;
 			break;
 			
 		case 4:
 		
 			cout << "Enter New Arrival Time: ";
-			cin >> trip.arrivaltime;
+			cin >> trip.arrivalTime;
 			flag = true;
 			break;
 			
@@ -1179,13 +1179,13 @@ bool updateTrip()
 	ofstream updateFile;
 	updateFile.open(tripFile.c_str());
 		
-		if(updateFile << trip.origin<< " " << trip.destination << " " << trip.flighttime << " " << trip.arrivaltime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status && flag)
+		if(updateFile << trip.origin<< " " << trip.destination << " " << trip.flightTime << " " << trip.arrivalTime << " " << trip.totalPassenger << " " << trip.ticketPrice << " " << trip.status && flag)
 		{
 			cout << "\n--Flight Has Been Updated!-- \n";
 		}
 		else
 		{
-			cout << "\n--Error: Nothing Has Chaneg!--\n";
+			cout << "\n--Error: Nothing Has Changed!--\n";
 		}
 }
 
@@ -1224,7 +1224,7 @@ bool isSeatExist(string tripId,int seat)
 	
 	fileName = "flightsLists\\" + tripId+"List.dat";
 	
-	if(!isexist("flights\\" + tripId+".dat"))
+	if(!isExist("flights\\" + tripId+".dat"))
 	{
 		cout << "Flight Does Not Exist!\n";
 		return true;
@@ -1263,8 +1263,8 @@ bool isSeatExist(string tripId,int seat)
 }
 
 
-// check if user status is cancled and return bool value
-bool ifUserdown(string user)
+// check if user status is canceled and return bool value
+bool ifUserDown(string user)
 {
 	string fileName = "users\\"+user+"User.dat";
 	User usr;
