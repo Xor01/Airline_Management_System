@@ -1244,7 +1244,8 @@ bool isSeatExist(string tripId,int seat)
 	while(!openFile.eof() && ctr < numberOfLines(fileName))
 	{	
 		openFile >> line[ctr].trip.tripId >> line[ctr].fName >> line[ctr].lName >> line[ctr].phone >> line[ctr].seat.seatNumber >> line[ctr].tripStatus >> line[ctr].status; 	
-		if( line[ctr].seat.seatNumber == seat )
+		// check if the seat exist and it's not canceled
+		if( line[ctr].seat.seatNumber == seat && line[ctr].tripStatus != "Canceled")
 		{	
 			flag = true;
 			break;
