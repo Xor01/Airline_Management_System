@@ -476,12 +476,13 @@ bool addTripDetails()
 	else
 	{
 		cout << "Error: **Your Flight Has Not Been Created** !\n";
+		file.close();
 		return false;
 	}
 	
 	
-    return false;
     file.close();	
+    return false;
 }
 
 
@@ -703,10 +704,12 @@ bool isExist(string fileName)
 	
 	if(file)
 	{
+		file.close();
 		return true;
 	}
-	return false;
 	file.close();
+	return false;
+	
 }
 
 
@@ -722,6 +725,7 @@ int numberOfLines(string fileName)
 	{
 		++numberOfLines;
 	}
+	anyFile.close();
 	return numberOfLines;
 }
 
@@ -741,6 +745,7 @@ bool deleteTrip()
 	if(!file)
 	{
 		cout << "\nError: ** Flight Does Not Exist! **\n";
+		file.close();
 		return false;
 	}
 	
@@ -1237,6 +1242,7 @@ bool isSeatExist(string tripId,int seat)
 	if(!openFile)
 	{
 		cout << "Flight Does Not Exist!";
+		openFile.close();
 		return true;
 	}
 	User line[100];
@@ -1257,9 +1263,11 @@ bool isSeatExist(string tripId,int seat)
 	if(flag)
 	{
 		cout << "Sorry This Seat Is Already Taken\n";
+		openFile.close();
 		return true;
 	}
 	else
+	openFile.close();
 		return false;
 }
 
@@ -1273,14 +1281,17 @@ bool ifUserDown(string user)
 	file.open(fileName.c_str());
 	if(!file)
 	{
+		file.close();
 		return false;
 	}
 	file >> usr.trip.tripId >> usr.fName >> usr.lName >> usr.phone >> usr.seat.seatNumber >> usr.tripStatus >> usr.status;
 	
 	if(usr.status != "Active-Account")
 	{
+		file.close();
 		return true;
 	}
+	file.close();
 	return false;
 	
 }
